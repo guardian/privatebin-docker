@@ -6,5 +6,1150 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
     "gu:cdk:constructs": [],
     "gu:cdk:version": "TEST",
   },
+  "Outputs": {
+    "privatebinLoadBalancerDNSD5309721": {
+      "Value": {
+        "Fn::GetAtt": [
+          "privatebinLB0FF18F1A",
+          "DNSName",
+        ],
+      },
+    },
+    "privatebinServiceURLB1EC4C73": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "http://",
+            {
+              "Fn::GetAtt": [
+                "privatebinLB0FF18F1A",
+                "DNSName",
+              ],
+            },
+          ],
+        ],
+      },
+    },
+  },
+  "Resources": {
+    "EcsDefaultClusterMnL3mNNYN926A5246": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::ECS::Cluster",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpc7788A521": {
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::VPC",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcIGW9C2C2B8F": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::InternetGateway",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1DefaultRouteA5ADF694": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1NATGateway5E3732C1",
+        },
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTable4F1D2E36",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTable4F1D2E36": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTableAssociation34B92275": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1RouteTable4F1D2E36",
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1Subnet075EFF4C",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1Subnet075EFF4C": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.128.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2DefaultRoute20CE2D89": {
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2NATGateway4C855E00",
+        },
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableDCE46591",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableAssociation111C622F": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableDCE46591",
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2SubnetE4CEDF73",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2RouteTableDCE46591": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2SubnetE4CEDF73": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.192.0/18",
+        "MapPublicIpOnLaunch": false,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Private",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Private",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PrivateSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1DefaultRouteFF4E2178": {
+      "DependsOn": [
+        "EcsDefaultClusterMnL3mNNYNVpcVPCGW2447264E",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcIGW9C2C2B8F",
+        },
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableA1FD6ACC",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1EIP8704DB2F": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1NATGateway5E3732C1": {
+      "DependsOn": [
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1DefaultRouteFF4E2178",
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableAssociation8B583A17",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1EIP8704DB2F",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1Subnet3C273B99",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableA1FD6ACC": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableAssociation8B583A17": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableA1FD6ACC",
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1Subnet3C273B99",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1Subnet3C273B99": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            0,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.0.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet1",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2DefaultRouteB1375520": {
+      "DependsOn": [
+        "EcsDefaultClusterMnL3mNNYNVpcVPCGW2447264E",
+      ],
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcIGW9C2C2B8F",
+        },
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTable263DEAA5",
+        },
+      },
+      "Type": "AWS::EC2::Route",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2EIPF0764873": {
+      "Properties": {
+        "Domain": "vpc",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::EIP",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2NATGateway4C855E00": {
+      "DependsOn": [
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2DefaultRouteB1375520",
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTableAssociation43E5803C",
+      ],
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2EIPF0764873",
+            "AllocationId",
+          ],
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2Subnet95FF715A",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::EC2::NatGateway",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTable263DEAA5": {
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::RouteTable",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTableAssociation43E5803C": {
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTable263DEAA5",
+        },
+        "SubnetId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2Subnet95FF715A",
+        },
+      },
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2Subnet95FF715A": {
+      "Properties": {
+        "AvailabilityZone": {
+          "Fn::Select": [
+            1,
+            {
+              "Fn::GetAZs": "",
+            },
+          ],
+        },
+        "CidrBlock": "10.0.64.0/18",
+        "MapPublicIpOnLaunch": true,
+        "Tags": [
+          {
+            "Key": "aws-cdk:subnet-name",
+            "Value": "Public",
+          },
+          {
+            "Key": "aws-cdk:subnet-type",
+            "Value": "Public",
+          },
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Name",
+            "Value": "PrivatebinDocker/EcsDefaultClusterMnL3mNNYN/Vpc/PublicSubnet2",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::Subnet",
+    },
+    "EcsDefaultClusterMnL3mNNYNVpcVPCGW2447264E": {
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpcIGW9C2C2B8F",
+        },
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+    },
+    "privatebinLB0FF18F1A": {
+      "DependsOn": [
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1DefaultRouteFF4E2178",
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1RouteTableAssociation8B583A17",
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2DefaultRouteB1375520",
+        "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2RouteTableAssociation43E5803C",
+      ],
+      "Properties": {
+        "LoadBalancerAttributes": [
+          {
+            "Key": "deletion_protection.enabled",
+            "Value": "false",
+          },
+        ],
+        "Scheme": "internet-facing",
+        "SecurityGroups": [
+          {
+            "Fn::GetAtt": [
+              "privatebinLBSecurityGroup4DE97107",
+              "GroupId",
+            ],
+          },
+        ],
+        "Subnets": [
+          {
+            "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet1Subnet3C273B99",
+          },
+          {
+            "Ref": "EcsDefaultClusterMnL3mNNYNVpcPublicSubnet2Subnet95FF715A",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "Type": "application",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+    },
+    "privatebinLBPublicListener3936451D": {
+      "Properties": {
+        "DefaultActions": [
+          {
+            "TargetGroupArn": {
+              "Ref": "privatebinLBPublicListenerECSGroupF2F28FEC",
+            },
+            "Type": "forward",
+          },
+        ],
+        "LoadBalancerArn": {
+          "Ref": "privatebinLB0FF18F1A",
+        },
+        "Port": 80,
+        "Protocol": "HTTP",
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+    },
+    "privatebinLBPublicListenerECSGroupF2F28FEC": {
+      "Properties": {
+        "Port": 80,
+        "Protocol": "HTTP",
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "TargetGroupAttributes": [
+          {
+            "Key": "stickiness.enabled",
+            "Value": "false",
+          },
+        ],
+        "TargetType": "ip",
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+    },
+    "privatebinLBSecurityGroup4DE97107": {
+      "Properties": {
+        "GroupDescription": "Automatically created Security Group for ELB PrivatebinDockerprivatebinLBDEFCCF1F",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow from anyone on port 80",
+            "FromPort": 80,
+            "IpProtocol": "tcp",
+            "ToPort": 80,
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "privatebinLBSecurityGrouptoPrivatebinDockerprivatebinServiceSecurityGroup1CBBEACC80BA478D1B": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "DestinationSecurityGroupId": {
+          "Fn::GetAtt": [
+            "privatebinServiceSecurityGroup496A4D34",
+            "GroupId",
+          ],
+        },
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "privatebinLBSecurityGroup4DE97107",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupEgress",
+    },
+    "privatebinService90EB829A": {
+      "DependsOn": [
+        "privatebinLBPublicListenerECSGroupF2F28FEC",
+        "privatebinLBPublicListener3936451D",
+      ],
+      "Properties": {
+        "Cluster": {
+          "Ref": "EcsDefaultClusterMnL3mNNYN926A5246",
+        },
+        "DeploymentConfiguration": {
+          "MaximumPercent": 200,
+          "MinimumHealthyPercent": 50,
+        },
+        "EnableECSManagedTags": false,
+        "HealthCheckGracePeriodSeconds": 60,
+        "LaunchType": "FARGATE",
+        "LoadBalancers": [
+          {
+            "ContainerName": "web",
+            "ContainerPort": 80,
+            "TargetGroupArn": {
+              "Ref": "privatebinLBPublicListenerECSGroupF2F28FEC",
+            },
+          },
+        ],
+        "NetworkConfiguration": {
+          "AwsvpcConfiguration": {
+            "AssignPublicIp": "DISABLED",
+            "SecurityGroups": [
+              {
+                "Fn::GetAtt": [
+                  "privatebinServiceSecurityGroup496A4D34",
+                  "GroupId",
+                ],
+              },
+            ],
+            "Subnets": [
+              {
+                "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet1Subnet075EFF4C",
+              },
+              {
+                "Ref": "EcsDefaultClusterMnL3mNNYNVpcPrivateSubnet2SubnetE4CEDF73",
+              },
+            ],
+          },
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "TaskDefinition": {
+          "Ref": "privatebinTaskDefDE1AD3DF",
+        },
+      },
+      "Type": "AWS::ECS::Service",
+    },
+    "privatebinServiceSecurityGroup496A4D34": {
+      "Properties": {
+        "GroupDescription": "PrivatebinDocker/privatebin/Service/SecurityGroup",
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "Description": "Allow all outbound traffic by default",
+            "IpProtocol": "-1",
+          },
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "VpcId": {
+          "Ref": "EcsDefaultClusterMnL3mNNYNVpc7788A521",
+        },
+      },
+      "Type": "AWS::EC2::SecurityGroup",
+    },
+    "privatebinServiceSecurityGroupfromPrivatebinDockerprivatebinLBSecurityGroup02A74615801505F5DE": {
+      "Properties": {
+        "Description": "Load balancer to target",
+        "FromPort": 80,
+        "GroupId": {
+          "Fn::GetAtt": [
+            "privatebinServiceSecurityGroup496A4D34",
+            "GroupId",
+          ],
+        },
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": {
+          "Fn::GetAtt": [
+            "privatebinLBSecurityGroup4DE97107",
+            "GroupId",
+          ],
+        },
+        "ToPort": 80,
+      },
+      "Type": "AWS::EC2::SecurityGroupIngress",
+    },
+    "privatebinTaskDefDE1AD3DF": {
+      "Properties": {
+        "ContainerDefinitions": [
+          {
+            "Essential": true,
+            "Image": "privatebin/nginx-fpm-alpine:1.5.1",
+            "LogConfiguration": {
+              "LogDriver": "awslogs",
+              "Options": {
+                "awslogs-group": {
+                  "Ref": "privatebinTaskDefwebLogGroup8D61A542",
+                },
+                "awslogs-region": {
+                  "Ref": "AWS::Region",
+                },
+                "awslogs-stream-prefix": "privatebin",
+              },
+            },
+            "Name": "web",
+            "PortMappings": [
+              {
+                "ContainerPort": 80,
+                "Protocol": "tcp",
+              },
+            ],
+          },
+        ],
+        "Cpu": "256",
+        "ExecutionRoleArn": {
+          "Fn::GetAtt": [
+            "privatebinTaskDefExecutionRole5B3A1739",
+            "Arn",
+          ],
+        },
+        "Family": "PrivatebinDockerprivatebinTaskDef846E0D46",
+        "Memory": "512",
+        "NetworkMode": "awsvpc",
+        "RequiresCompatibilities": [
+          "FARGATE",
+        ],
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+        "TaskRoleArn": {
+          "Fn::GetAtt": [
+            "privatebinTaskDefTaskRole13BB9E11",
+            "Arn",
+          ],
+        },
+      },
+      "Type": "AWS::ECS::TaskDefinition",
+    },
+    "privatebinTaskDefExecutionRole5B3A1739": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "privatebinTaskDefExecutionRoleDefaultPolicyB13812E3": {
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogStream",
+                "logs:PutLogEvents",
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "privatebinTaskDefwebLogGroup8D61A542",
+                  "Arn",
+                ],
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "privatebinTaskDefExecutionRoleDefaultPolicyB13812E3",
+        "Roles": [
+          {
+            "Ref": "privatebinTaskDefExecutionRole5B3A1739",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
+    },
+    "privatebinTaskDefTaskRole13BB9E11": {
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "ecs-tasks.amazonaws.com",
+              },
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Role",
+    },
+    "privatebinTaskDefwebLogGroup8D61A542": {
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "gu:cdk:version",
+            "Value": "TEST",
+          },
+          {
+            "Key": "gu:repo",
+            "Value": "guardian/privatebin-docker",
+          },
+          {
+            "Key": "Stack",
+            "Value": "security",
+          },
+          {
+            "Key": "Stage",
+            "Value": "TEST",
+          },
+        ],
+      },
+      "Type": "AWS::Logs::LogGroup",
+      "UpdateReplacePolicy": "Retain",
+    },
+  },
 }
 `;
