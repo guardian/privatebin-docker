@@ -6,6 +6,7 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
     "gu:cdk:constructs": [
       "GuVpcParameter",
       "GuSubnetListParameter",
+      "GuSubnetListParameter",
       "GuCertificate",
       "GuApplicationLoadBalancer",
       "GuCname",
@@ -51,6 +52,11 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
     "PrivateSubnets": {
       "Default": "/account/vpc/primary/subnets/private",
       "Description": "A list of private subnets",
+      "Type": "AWS::SSM::Parameter::Value<List<AWS::EC2::Subnet::Id>>",
+    },
+    "PublicSubnets": {
+      "Default": "/account/vpc/primary/subnets/public",
+      "Description": "A list of public subnets",
       "Type": "AWS::SSM::Parameter::Value<List<AWS::EC2::Subnet::Id>>",
     },
     "VpcId": {
@@ -123,10 +129,10 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
         "LoadBalancerAttributes": [
           {
             "Key": "deletion_protection.enabled",
-            "Value": "true",
+            "Value": "false",
           },
         ],
-        "Scheme": "internal",
+        "Scheme": "internet-facing",
         "SecurityGroups": [
           {
             "Fn::GetAtt": [
@@ -136,7 +142,7 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
           },
         ],
         "Subnets": {
-          "Ref": "PrivateSubnets",
+          "Ref": "PublicSubnets",
         },
         "Tags": [
           {
@@ -302,7 +308,7 @@ exports[`The PrivatebinDocker stack matches the snapshot 1`] = `
           },
         ],
         "Stage": "TEST",
-        "TTL": 3600,
+        "TTL": 60,
       },
       "Type": "Guardian::DNS::RecordSet",
     },

@@ -5,7 +5,7 @@ import { PrivatebinDocker } from "./privatebin-docker";
 describe("The PrivatebinDocker stack", () => {
   it("matches the snapshot", () => {
     const app = new App();
-    const stack = new PrivatebinDocker(app, "PrivatebinDocker", { stack: "security", stage: "TEST" });
+    const stack = new PrivatebinDocker(app, "PrivatebinDocker", "1.5.1", { stack: "security", stage: "TEST" });
     const template = Template.fromStack(stack);
     expect(template.toJSON()).toMatchSnapshot();
   });
