@@ -30,10 +30,10 @@ export class PrivatebinDocker extends GuStack {
       taskImageOptions,
       vpc,
       taskSubnets: {
-        subnetType: SubnetType.PRIVATE_ISOLATED,
+        //subnetType: SubnetType.PRIVATE_ISOLATED,
         subnets },
       certificate,
-      loadBalancer: new GuApplicationLoadBalancer(this, `${app}-alb`, {app, vpc, internetFacing: false,})
+      loadBalancer: new GuApplicationLoadBalancer(this, `${app}-alb`, {app, vpc, internetFacing: false,  vpcSubnets: {subnets}})
     }
     const pb = new ApplicationLoadBalancedFargateService(this, `${app}-service`, fargateProps)
 
