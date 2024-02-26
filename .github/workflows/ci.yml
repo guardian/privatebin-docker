@@ -16,18 +16,13 @@ jobs:
 
     # See https://docs.github.com/en/actions/security-guides/automatic-token-authentication#permissions-for-the-github_token
     permissions:
-      # required by aws-actions/configure-aws-credentials
+      # required by guardian/actions-riff-raff
       id-token: write
       contents: read
+      # required by guardian/actions-riff-raff
+      pull-requests: write
     steps:
       - uses: actions/checkout@v3
-
-      # Setup AWS credentials to enable uploading to S3 for Riff-Raff.
-      # See https://github.com/aws-actions/configure-aws-credentials
-      - uses: aws-actions/configure-aws-credentials@v2
-        with:
-          role-to-assume: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
-          aws-region: eu-west-1
 
       - name: Setup Node
         uses: actions/setup-node@v3
@@ -40,9 +35,11 @@ jobs:
         run: ./scripts/ci.sh
 
       - name: Upload to riff-raff
-        uses: guardian/actions-riff-raff@v2
+        uses: guardian/actions-riff-raff@v4
         with:
           app: privatebin-docker
+          roleArn: ${{ secrets.GU_RIFF_RAFF_ROLE_ARN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
           projectName: security::privatebin-docker
           configPath: cdk/cdk.out/riff-raff.yaml
           contentDirectories: |
